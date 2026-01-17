@@ -1,16 +1,27 @@
-# React + Vite
+# Jyotish Graph UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React-based frontend for the Jyotish Backend, built with Vite.
 
-Currently, two official plugins are available:
+## Features
+*   **Birth Details Input**: City search with timezone resolution.
+*   **Kundli Chart**: North Indian (Diamond) chart visualization.
+*   **Planetary Data**: Longitudes, signs, retrograde status.
+*   **Vimshottari Dasha**: Hierarchical timeline of celestial periods (Mahadasha & Antardasha).
+*   **Cosmic Theme**: Custom dark mode styling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
 
-## React Compiler
+1.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+    *Note: This project uses React 18 and Vite 5 for compatibility with Node.js 18+.*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+    The app will start at `http://localhost:5173`.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Configuration
+The app is configured to proxy API requests (`/api/*`) to the backend running at `http://localhost:8000`. Ensure the backend is running before using the frontend.

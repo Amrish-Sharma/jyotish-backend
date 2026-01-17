@@ -26,3 +26,11 @@ High-precision astrology backend system acting as a single source of truth for K
     ```bash
     uvicorn app.main:app --reload
     ```
+
+4.  Run the Frontend:
+    ```bash
+    cd ui
+    npm install
+    npm run dev
+    ```
+    Access the UI at `http://localhost:5173`.
