@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const BirthInput = ({ onSubmit, isLoading }) => {
     const [formData, setFormData] = useState({
+        name: '',
+        gender: 'male',
         dob: '1989-02-24',
         tob: '16:30:00',
         lat: '',
@@ -47,22 +49,7 @@ const BirthInput = ({ onSubmit, isLoading }) => {
             city: city.name,
             lat: city.lat,
             lon: city.lon,
-
-            // Basic timezone numeric mapping (approximate, since backend gives str like 'Asia/Kolkata')
-            // For now, we will ask user to confirm numeric offset or try to parse it if we had a library.
-            // But wait! PRD API expects numeric timezone. 
-            // The backend 'timezonefinder' gives 'Asia/Kolkata'.
-            // KundliRequest needs float (e.g. 5.5).
-            // We need to convert IANA string to offset. 
-
-            // HACK: For MVP, let's ask Backend to return offset OR do it in frontend?
-            // Since we didn't add offset to backend yet, let's manually input timezone for now 
-            // OR update backend to return offset. 
-            // Let's stick to manual timezone confirmation for this step to be safe, 
-            // OR better: Update Backend GeoService to return offset! 
-
-            // Let's assume user confirms manually for now as per "Safe" approach
-            // But we can populate lat/lon.
+            timezone: city.timezone
         }));
         setShowDropdown(false);
     };
@@ -94,6 +81,32 @@ const BirthInput = ({ onSubmit, isLoading }) => {
         <div className="card">
             <h2 style={{ marginTop: 0, marginBottom: '20px' }}>Birth Details</h2>
             <form onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        className="input-field"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter Name"
+                    />
+                </div>
+
+                <div className="input-group">
+                    <label>Gender</label>
+                    <select
+                        name="gender"
+                        className="input-field"
+                        value={formData.gender}
+                        onChange={handleChange}
+                    >
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
                 <div className="input-group">
                     <label>City / Place of Birth</label>
                     <div style={{ position: 'relative' }}>
