@@ -4,6 +4,7 @@ import BirthInput from './components/BirthInput';
 import KundliChart from './components/KundliChart';
 import PlanetTable from './components/PlanetTable';
 import DashaDisplay from './components/DashaDisplay';
+import KundliDetails from './components/KundliDetails';
 
 function App() {
   const [kundliData, setKundliData] = useState(null);
@@ -63,6 +64,11 @@ function App() {
                 <PlanetTable planets={kundliData.planets} />
                 <DashaDisplay dasha={kundliData.dasha} />
               </div>
+
+              <KundliDetails
+                basicDetails={kundliData.basic_details}
+                ghatakDetails={kundliData.ghatak_details}
+              />
             </>
           ) : (
             <div className="card" style={{ textAlign: 'center', padding: '50px' }}>
