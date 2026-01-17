@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.v1.endpoints import kundli
+from app.api.v1.endpoints import kundli, geo
 
 app = FastAPI(
     title="Jyotish Backend",
@@ -8,6 +8,7 @@ app = FastAPI(
 )
 
 app.include_router(kundli.router, prefix="/api/v1/kundli", tags=["kundli"])
+app.include_router(geo.router, prefix="/api/v1/geo", tags=["geo"])
 
 @app.get("/health")
 def health_check():

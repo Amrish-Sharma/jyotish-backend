@@ -11,7 +11,9 @@ dependencies = [
     "pydantic>=2.6.0",
     "pydantic-settings>=2.1.0",
     "redis>=5.0.1",
-    "python-multipart>=0.0.9"
+    "python-multipart>=0.0.9",
+    "geopy>=2.4.1",
+    "timezonefinder>=6.4.0"
 ]
 
 [project.optional-dependencies]
