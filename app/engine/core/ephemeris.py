@@ -23,7 +23,7 @@ class EphemerisProvider(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_house_cusps(self, julian_day: float, lat: float, lon: float, house_system: str = 'W') -> Tuple[list, list]:
+    def get_house_cusps(self, julian_day: float, lat: float, lon: float, house_system: str = 'W', sidereal_mode: bool = False) -> Tuple[list, list]:
         """
         Get house cusps and ascendant.
 
@@ -31,10 +31,8 @@ class EphemerisProvider(abc.ABC):
             julian_day: Julian Day number (UT)
             lat: Latitude
             lon: Longitude
-            house_system: House system code (default 'W' for Whole Sign - mapped later, usually 'P' or 'W' in swe)
-                          Note: swe.houses usually takes 'P' (Placidus), 'W' (Equal), etc.
-                          For Whole Sign, we typically calculate Ascendant and derive houses manually,
-                          but 'W' in swe is Equal House.
+            house_system: House system code
+            sidereal_mode: If True, calculate using Sidereal position (requires calling set_sidereal_mode first)
         
         Returns:
             Tuple of (cusps, ascmc)
@@ -78,10 +76,20 @@ class SwissEphemerisProvider(EphemerisProvider):
         res, rflag = swe.calc_ut(julian_day, planet_id, flags)
         return res[0], res[1], res[2], res[3] # long, lat, dist, speed_long
 
-    def get_house_cusps(self, julian_day: float, lat: float, lon: float, house_system: str = 'W') -> Tuple[list, list]:
+    def get_house_cusps(self, julian_day: float, lat: float, lon: float, house_system: str = 'W', sidereal_mode: bool = False) -> Tuple[list, list]:
         # swe.houses returns (cusps, ascmc)
         # cusps is a tuple of 13 floats (index 0 is 0.0)
         # ascmc is a tuple of 10 floats
+        
+        if sidereal_mode:
+            try:
+                flags = swe.FLG_SIDEREAL
+                # houses_ex allows passing flags to respect global sidereal mode
+                return swe.houses_ex(julian_day, lat, lon, bytes(house_system, 'ascii'), flags)
+            except AttributeError:
+                # Fallback if houses_ex not available (older versions), though unlikely
+                pass
+                
         return swe.houses(julian_day, lat, lon, bytes(house_system, 'ascii'))
 
     def set_sidereal_mode(self, ayanamsa_id: int):

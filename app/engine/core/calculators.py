@@ -101,7 +101,8 @@ class KundliCalculator:
         # cusps is 13 elements (0 is 0.0)
         # ascmc[0] is Ascendant
         
-        cusps, ascmc = self.ephemeris.get_house_cusps(julian_day, lat, lon, house_system)
+        # Pass sidereal_mode=True to get Sidereal Ascendant/Houses
+        cusps, ascmc = self.ephemeris.get_house_cusps(julian_day, lat, lon, house_system, sidereal_mode=True)
         
         ascendant = ascmc[0]
         

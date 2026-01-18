@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 const BirthInput = ({ onSubmit, isLoading }) => {
     const [formData, setFormData] = useState({
         name: '',
-        gender: 'male',
-        dob: '1989-02-24',
-        tob: '16:30:00',
+        gender: '',
+        dob: '',
+        tob: '',
         lat: '',
         lon: '',
         timezone: '',
